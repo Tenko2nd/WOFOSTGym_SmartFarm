@@ -38,6 +38,7 @@ class Perennial_Plant_Limited_NPKW_Env(Plant_NPK_Env, LNPKW):
     """
 
     config = utils.make_config(soil=SoilModuleWrapper_LNPKW, crop=Wofost80Perennial, agro=AgroManagerPlantPerennial)
+    NUM_ACT = 6
 
     def __init__(
         self,
@@ -144,6 +145,7 @@ class Perennial_Plant_PP_Env(Plant_NPK_Env, PP):
     """
 
     config = utils.make_config(soil=SoilModuleWrapper_PP, crop=Wofost80Perennial, agro=AgroManagerPlantPerennial)
+    NUM_ACT = 2
 
     def __init__(
         self,
@@ -223,6 +225,7 @@ class Perennial_Plant_Limited_NPK_Env(Plant_NPK_Env, LNPK):
     """
 
     config = utils.make_config(soil=SoilModuleWrapper_LNPK, crop=Wofost80Perennial, agro=AgroManagerPlantPerennial)
+    NUM_ACT = 5
 
     def __init__(
         self,
@@ -320,6 +323,7 @@ class Perennial_Plant_Limited_N_Env(Plant_NPK_Env, LN):
     """
 
     config = utils.make_config(soil=SoilModuleWrapper_LN, crop=Wofost80Perennial, agro=AgroManagerPlantPerennial)
+    NUM_ACT = 3
 
     def __init__(
         self,
@@ -408,6 +412,7 @@ class Perennial_Plant_Limited_NW_Env(Plant_NPK_Env, LNW):
     """
 
     config = utils.make_config(soil=SoilModuleWrapper_LNW, crop=Wofost80Perennial, agro=AgroManagerPlantPerennial)
+    NUM_ACT = 4
 
     def __init__(
         self,
@@ -504,6 +509,7 @@ class Perennial_Plant_Limited_W_Env(Plant_NPK_Env, LW):
     """
 
     config = utils.make_config(soil=SoilModuleWrapper_LW, crop=Wofost80Perennial, agro=AgroManagerPlantPerennial)
+    NUM_ACT = 3
 
     def __init__(
         self,
@@ -595,6 +601,7 @@ class Perennial_Plant_Limited_Layered_NPKW_Env(Plant_NPK_Env, LNPKW):
     config = utils.make_config(
         soil=LayeredSoilModuleWrapper_LNPKW, crop=Wofost80Perennial, agro=AgroManagerPlantPerennial
     )
+    NUM_ACT = 6
 
     def __init__(
         self,
@@ -701,6 +708,7 @@ class Perennial_Plant_Layered_PP_Env(Plant_NPK_Env, PP):
     """
 
     config = utils.make_config(soil=LayeredSoilModuleWrapper_PP, crop=Wofost80Perennial, agro=AgroManagerPlantPerennial)
+    NUM_ACT = 2
 
     def __init__(
         self,
@@ -782,6 +790,7 @@ class Perennial_Plant_Limited_Layered_NPK_Env(Plant_NPK_Env, LNPK):
     config = utils.make_config(
         soil=LayeredSoilModuleWrapper_LNPK, crop=Wofost80Perennial, agro=AgroManagerPlantPerennial
     )
+    NUM_ACT = 5
 
     def __init__(
         self,
@@ -879,6 +888,7 @@ class Perennial_Plant_Limited_Layered_N_Env(Plant_NPK_Env, LN):
     """
 
     config = utils.make_config(soil=LayeredSoilModuleWrapper_LN, crop=Wofost80Perennial, agro=AgroManagerPlantPerennial)
+    NUM_ACT = 3
 
     def __init__(
         self,
@@ -969,6 +979,7 @@ class Perennial_Plant_Limited_Layered_NW_Env(Plant_NPK_Env, LNW):
     config = utils.make_config(
         soil=LayeredSoilModuleWrapper_LNW, crop=Wofost80Perennial, agro=AgroManagerPlantPerennial
     )
+    NUM_ACT = 4
 
     def __init__(
         self,
@@ -1065,6 +1076,7 @@ class Perennial_Plant_Limited_Layered_W_Env(Plant_NPK_Env, LW):
     """
 
     config = utils.make_config(soil=LayeredSoilModuleWrapper_LW, crop=Wofost80Perennial, agro=AgroManagerPlantPerennial)
+    NUM_ACT = 3
 
     def __init__(
         self,

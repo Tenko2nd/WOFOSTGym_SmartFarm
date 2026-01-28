@@ -10,13 +10,11 @@ import subprocess
 import time
 from gui.notif import Notif
 
-from PySide6.QtWidgets import (
-    QWidget, QPushButton,
-    QVBoxLayout, QLabel, QComboBox
-)
+from PySide6.QtWidgets import QWidget, QPushButton, QVBoxLayout, QLabel, QComboBox
 from PySide6.QtCore import QSize
 
 POSSIBLE_AGENT_TYPES = ["PPO", "SAC", "DQN", "GAIL", "AIRL", "BC"]
+
 
 class ViewLogsPage(QWidget):
     def __init__(self, pages, file_selections):
@@ -73,7 +71,6 @@ class ViewLogsPage(QWidget):
         layout.addWidget(self.open_tb)
         self.setLayout(layout)
 
-
     # *************************
     #        FUNCTIONS
     # *************************
@@ -90,7 +87,7 @@ class ViewLogsPage(QWidget):
 
     def load_training_files(self):
         save_path = self.file_selections["save_folder"]
-        
+
         for agent_type in POSSIBLE_AGENT_TYPES:
             agent_path = os.path.join(save_path, agent_type)
             if not os.path.isdir(agent_path):
@@ -109,9 +106,9 @@ class ViewLogsPage(QWidget):
             self.tb_proc.terminate()
             print("-WOFOST- Previous TensorBoard process terminated.")
 
-        logdir = os.path.join(self.file_selections["save_folder"], 
-                                self.agent_type_dropdown.currentText(), 
-                                self.log_dropdown.currentText())
+        logdir = os.path.join(
+            self.file_selections["save_folder"], self.agent_type_dropdown.currentText(), self.log_dropdown.currentText()
+        )
 
         self.tb_proc = subprocess.Popen(
             ["tensorboard", f"--logdir={logdir}"],
@@ -120,7 +117,6 @@ class ViewLogsPage(QWidget):
         print("-WOFOST- Command: tensorboard --logdir={}".format(logdir))
         time.sleep(1)
         webbrowser.open(f"http://localhost:6006")
-
 
     def closeEvent(self, event):
         if self.tb_proc and self.tb_proc.poll() is None:
@@ -133,5 +129,3 @@ class ViewLogsPage(QWidget):
     def go_back(self):
         self.pages["train_agent_page"].show()
         self.close()
-            
-            

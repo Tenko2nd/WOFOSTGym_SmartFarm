@@ -38,6 +38,7 @@ class Perennial_Harvest_Limited_NPKW_Env(Harvest_NPK_Env, LNPKW):
     """
 
     config = utils.make_config(soil=SoilModuleWrapper_LNPKW, crop=Wofost80Perennial, agro=AgroManagerHarvest)
+    NUM_ACT = 5
 
     def __init__(
         self,
@@ -127,6 +128,7 @@ class Perennial_Harvest_PP_Env(Harvest_NPK_Env, PP):
     """
 
     config = utils.make_config(soil=SoilModuleWrapper_PP, crop=Wofost80Perennial, agro=AgroManagerHarvest)
+    NUM_ACT = 1
 
     def __init__(
         self,
@@ -190,6 +192,7 @@ class Perennial_Harvest_Limited_NPK_Env(Harvest_NPK_Env, LNPK):
     """
 
     config = utils.make_config(soil=SoilModuleWrapper_LNPK, crop=Wofost80Perennial, agro=AgroManagerHarvest)
+    NUM_ACT = 4
 
     def __init__(
         self,
@@ -271,6 +274,7 @@ class Perennial_Harvest_Limited_N_Env(Harvest_NPK_Env, LN):
     """
 
     config = utils.make_config(soil=SoilModuleWrapper_LN, crop=Wofost80Perennial, agro=AgroManagerHarvest)
+    NUM_ACT = 2
 
     def __init__(
         self,
@@ -343,6 +347,7 @@ class Perennial_Harvest_Limited_NW_Env(Harvest_NPK_Env, LNW):
     """
 
     config = utils.make_config(soil=SoilModuleWrapper_LNW, crop=Wofost80Perennial, agro=AgroManagerHarvest)
+    NUM_ACT = 3
 
     def __init__(
         self,
@@ -424,6 +429,7 @@ class Perennial_Harvest_Limited_W_Env(Harvest_NPK_Env, LW):
     """
 
     config = utils.make_config(soil=SoilModuleWrapper_LW, crop=Wofost80Perennial, agro=AgroManagerHarvest)
+    NUM_ACT = 2
 
     def __init__(
         self,
@@ -497,6 +503,7 @@ class Perennial_Harvest_Limited_Layered_NPKW_Env(Harvest_NPK_Env, LNPKW):
     """
 
     config = utils.make_config(soil=LayeredSoilModuleWrapper_LNPKW, crop=Wofost80Perennial, agro=AgroManagerHarvest)
+    NUM_ACT = 5
 
     def __init__(
         self,
@@ -586,6 +593,7 @@ class Perennial_Harvest_Layered_PP_Env(Harvest_NPK_Env, PP):
     """
 
     config = utils.make_config(soil=LayeredSoilModuleWrapper_PP, crop=Wofost80Perennial, agro=AgroManagerHarvest)
+    NUM_ACT = 1
 
     def __init__(
         self,
@@ -649,6 +657,7 @@ class Perennial_Harvest_Limited_Layered_NPK_Env(Harvest_NPK_Env, LNPK):
     """
 
     config = utils.make_config(soil=LayeredSoilModuleWrapper_LNPK, crop=Wofost80Perennial, agro=AgroManagerHarvest)
+    NUM_ACT = 4
 
     def __init__(
         self,
@@ -730,6 +739,7 @@ class Perennial_Harvest_Limited_Layered_N_Env(Harvest_NPK_Env, LN):
     """
 
     config = utils.make_config(soil=LayeredSoilModuleWrapper_LN, crop=Wofost80Perennial, agro=AgroManagerHarvest)
+    NUM_ACT = 2
 
     def __init__(
         self,
@@ -802,6 +812,7 @@ class Perennial_Harvest_Limited_Layered_NW_Env(Harvest_NPK_Env, LNW):
     """
 
     config = utils.make_config(soil=LayeredSoilModuleWrapper_LNW, crop=Wofost80Perennial, agro=AgroManagerHarvest)
+    NUM_ACT = 3
 
     def __init__(
         self,
@@ -883,6 +894,7 @@ class Perennial_Harvest_Limited_Layered_W_Env(Harvest_NPK_Env, LW):
     """
 
     config = utils.make_config(soil=LayeredSoilModuleWrapper_LW, crop=Wofost80Perennial, agro=AgroManagerHarvest)
+    NUM_ACT = 2
 
     def __init__(
         self,

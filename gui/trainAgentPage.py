@@ -9,11 +9,9 @@ import webbrowser
 import subprocess
 from gui.notif import Notif
 
-from PySide6.QtWidgets import (
-    QWidget, QPushButton, QProgressBar,
-    QVBoxLayout, QLabel, QHBoxLayout, QGroupBox, QComboBox
-)
+from PySide6.QtWidgets import QWidget, QPushButton, QProgressBar, QVBoxLayout, QLabel, QHBoxLayout, QGroupBox, QComboBox
 from PySide6.QtCore import QSize, QTimer
+
 
 def get_latest_logdir(base_dir):
     try:
@@ -25,6 +23,7 @@ def get_latest_logdir(base_dir):
         return latest_dir
     except FileNotFoundError:
         return None
+
 
 class TrainingPage(QWidget):
     def __init__(self, pages, file_selections, env_selections, agent_type):
@@ -41,7 +40,7 @@ class TrainingPage(QWidget):
 
         self.progress_bar = QProgressBar()
         self.progress_bar.setRange(0, 0)
-        
+
         # *************************
         #        BUTTONS
         # *************************
@@ -76,20 +75,32 @@ class TrainingPage(QWidget):
         #       INITIALIZATION
         # *************************
         self.train_proc = subprocess.Popen(
-            ["python3", "train_agent.py", 
-             "--agent_type", self.agent_type,
-             "--save-folder", self.file_selections["save_folder"] + "/",
-             "--env-id", self.env_selections["env_id"],
-             "--agro-file", self.env_selections["agro_file"]],
+            [
+                "python3",
+                "train_agent.py",
+                "--agent_type",
+                self.agent_type,
+                "--save-folder",
+                self.file_selections["save_folder"] + "/",
+                "--env-id",
+                self.env_selections["env_id"],
+                "--agro-file",
+                self.env_selections["agro_file"],
+            ],
         )
         print("-WOFOST- Training process started with agent type:", self.agent_type)
-        print("-WOFOST- Command: python train_agent.py --agent_type {} --save-folder {} --env-id {} --agro-file {}".format(
-            self.agent_type, self.file_selections["save_folder"] + "/", self.env_selections["env_id"], self.env_selections["agro_file"]
-        ))
+        print(
+            "-WOFOST- Command: python train_agent.py --agent_type {} --save-folder {} --env-id {} --agro-file {}".format(
+                self.agent_type,
+                self.file_selections["save_folder"] + "/",
+                self.env_selections["env_id"],
+                self.env_selections["agro_file"],
+            )
+        )
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.check_training_status)
-        self.timer.start(1000) 
+        self.timer.start(1000)
 
         self.tb_proc = None
 
@@ -112,7 +123,6 @@ class TrainingPage(QWidget):
                 self.notif.show()
                 print(f"-WOFOST- Training exited with error (code {exit_code}).")
 
-
             if self.tb_proc and self.tb_proc.poll() is None:
                 self.tb_proc.terminate()
                 print("-WOFOST- TensorBoard process terminated.")
@@ -131,7 +141,7 @@ class TrainingPage(QWidget):
                 self.notif = Notif("No TensorBoard logs found. Please ensure training has been run.")
                 self.notif.show()
                 return
-            
+
             self.tb_proc = subprocess.Popen(
                 ["tensorboard", f"--logdir={logdir}"],
             )
@@ -152,7 +162,7 @@ class TrainingPage(QWidget):
             print("-WOFOST- Training process terminated by user.")
         self.progress_bar.setRange(0, 1)
         self.progress_bar.setValue(1)
-        
+
         if self.timer.isActive():
             self.timer.stop()
 
@@ -179,10 +189,14 @@ class TrainAgentPage(QWidget):
         self.types_label = QLabel("Agent Type:")
         self.types_label.setFixedSize(QSize(100, 30))
         self.types_dropdown = QComboBox()
-        self.types_dropdown.addItems([
-            "PPO", "SAC", "DQN", 
-            #"GAIL", "AIRL", "BC"
-        ])
+        self.types_dropdown.addItems(
+            [
+                "PPO",
+                "SAC",
+                "DQN",
+                # "GAIL", "AIRL", "BC"
+            ]
+        )
 
         types_layout = QHBoxLayout()
         types_layout.addWidget(self.types_label)
@@ -232,9 +246,13 @@ class TrainAgentPage(QWidget):
             self.notif = Notif("Please select an agent type.")
             self.notif.show()
             return
-        
-        self.training_page = TrainingPage(pages=self.pages, file_selections=self.file_selections, env_selections=self.env_selections,
-                                          agent_type=self.types_dropdown.currentText())
+
+        self.training_page = TrainingPage(
+            pages=self.pages,
+            file_selections=self.file_selections,
+            env_selections=self.env_selections,
+            agent_type=self.types_dropdown.currentText(),
+        )
         self.training_page.show()
         self.close()
 

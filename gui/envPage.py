@@ -7,11 +7,9 @@ Written by Mason Schuster, 2025
 from gui.agroPage import AgromanagementPage
 from gui.notif import Notif
 
-from PySide6.QtWidgets import (
-    QWidget, QPushButton, QComboBox, QCheckBox,
-    QVBoxLayout, QLabel, QHBoxLayout, QGroupBox
-)
+from PySide6.QtWidgets import QWidget, QPushButton, QComboBox, QCheckBox, QVBoxLayout, QLabel, QHBoxLayout, QGroupBox
 from PySide6.QtCore import QSize, Qt
+
 
 class EnvironmentPage(QWidget):
     def __init__(self, pages, file_selections):
@@ -34,13 +32,15 @@ class EnvironmentPage(QWidget):
         self.env_var1_label = QLabel("Cycle:")
         self.env_var1_label.setFixedSize(QSize(100, 30))
         self.env_var1_dropdown = QComboBox()
-        self.env_var1_dropdown.addItems([
-            "Annual",
-            "Perennial",
-            "Grape Specific",
-            "Annual - Multi Farm",
-            "Perennial - Multi Farm",
-        ])
+        self.env_var1_dropdown.addItems(
+            [
+                "Annual",
+                "Perennial",
+                "Grape Specific",
+                "Annual - Multi Farm",
+                "Perennial - Multi Farm",
+            ]
+        )
         self.env_var1_dropdown.setCurrentIndex(-1)
         self.env_var1_dropdown.setFixedSize(QSize(200, 30))
         self.env_var1_dropdown.currentIndexChanged.connect(self.var_1_change)
@@ -179,11 +179,13 @@ class EnvironmentPage(QWidget):
             self.notif = Notif("Please select all options.")
             self.notif.show()
             return
-        
+
         env_selections["env_id"] = self.build_env_id(env_selections)
         print("-WOFOST- Env ID Generated:", env_selections["env_id"])
 
-        self.agro_page = AgromanagementPage(pages=self.pages, env_selections=env_selections, file_selections=self.file_selections)
+        self.agro_page = AgromanagementPage(
+            pages=self.pages, env_selections=env_selections, file_selections=self.file_selections
+        )
         self.agro_page.show()
         self.hide()
 

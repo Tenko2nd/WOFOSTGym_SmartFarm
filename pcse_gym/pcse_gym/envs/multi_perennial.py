@@ -36,6 +36,7 @@ class Pernnial_Multi_Limited_NPKW_Env(Multi_NPK_Env, LNPKW):
     """Simulates crop growth under NPK and water limited conditions"""
 
     config = utils.make_config(soil=SoilModuleWrapper_LNPKW, crop=Wofost80Perennial, agro=AgroManagerPerennial)
+    NUM_ACT = 4
 
     def __init__(
         self,
@@ -130,6 +131,7 @@ class Pernnial_Multi_PP_Env(Multi_NPK_Env, PP):
     """
 
     config = utils.make_config(soil=SoilModuleWrapper_PP, crop=Wofost80Perennial, agro=AgroManagerPerennial)
+    NUM_ACT = 0
 
     def __init__(
         self,
@@ -181,6 +183,7 @@ class Pernnial_Multi_Limited_NPK_Env(Multi_NPK_Env, LNPK):
     """Simulates crop growth under NPK Limited Production"""
 
     config = utils.make_config(soil=SoilModuleWrapper_LNPK, crop=Wofost80Perennial, agro=AgroManagerPerennial)
+    NUM_ACT = 3
 
     def __init__(
         self,
@@ -249,6 +252,7 @@ class Pernnial_Multi_Limited_N_Env(Multi_NPK_Env, LN):
     """Simulates crop growth under Nitrogen Limited Production"""
 
     config = utils.make_config(soil=SoilModuleWrapper_LN, crop=Wofost80Perennial, agro=AgroManagerPerennial)
+    NUM_ACT = 1
 
     def __init__(
         self,
@@ -309,6 +313,7 @@ class Pernnial_Multi_Limited_NW_Env(Multi_NPK_Env, LNW):
     """Simulates crop growth under Nitrogen and Water Limited Production"""
 
     config = utils.make_config(soil=SoilModuleWrapper_LNW, crop=Wofost80Perennial, agro=AgroManagerPerennial)
+    NUM_ACT = 2
 
     def __init__(
         self,
@@ -377,6 +382,7 @@ class Pernnial_Multi_Limited_W_Env(Multi_NPK_Env, LW):
     """Simulates crop growth under Water Limited Production"""
 
     config = utils.make_config(soil=SoilModuleWrapper_LW, crop=Wofost80Perennial, agro=AgroManagerPerennial)
+    NUM_ACT = 1
 
     def __init__(
         self,
@@ -419,7 +425,7 @@ class Pernnial_Multi_Limited_W_Env(Multi_NPK_Env, LW):
         Args:
             action
         """
-        irrig_amount = action
+        i_amount = action
         # Null action
         if action == 0:
             return (0, 0, 0, i_amount)
@@ -437,6 +443,7 @@ class Pernnial_Multi_Limited_Layered_NPKW_Env(Multi_NPK_Env, LNPKW):
     """Simulates crop growth under NPK and water limited conditions with layered waterbalance"""
 
     config = utils.make_config(soil=LayeredSoilModuleWrapper_LNPKW, crop=Wofost80Perennial, agro=AgroManagerPerennial)
+    NUM_ACT = 4
 
     def __init__(
         self,
@@ -531,6 +538,7 @@ class Pernnial_Multi_Layered_PP_Env(Multi_NPK_Env, PP):
     """
 
     config = utils.make_config(soil=LayeredSoilModuleWrapper_PP, crop=Wofost80Perennial, agro=AgroManagerPerennial)
+    NUM_ACT = 0
 
     def __init__(
         self,
@@ -582,6 +590,7 @@ class Pernnial_Multi_Limited_Layered_NPK_Env(Multi_NPK_Env, LNPK):
     """Simulates crop growth under NPK Limited Production with layered waterbalance"""
 
     config = utils.make_config(soil=LayeredSoilModuleWrapper_LNPK, crop=Wofost80Perennial, agro=AgroManagerPerennial)
+    NUM_ACT = 3
 
     def __init__(
         self,
@@ -650,6 +659,7 @@ class Pernnial_Multi_Limited_Layered_N_Env(Multi_NPK_Env, LN):
     """Simulates crop growth under Nitrogen Limited Production with layered water balance"""
 
     config = utils.make_config(soil=LayeredSoilModuleWrapper_LN, crop=Wofost80Perennial, agro=AgroManagerPerennial)
+    NUM_ACT = 1
 
     def __init__(
         self,
@@ -710,6 +720,7 @@ class Pernnial_Multi_Limited_Layered_NW_Env(Multi_NPK_Env, LNW):
     """Simulates crop growth under Nitrogen and Water Limited Production with layered water balance"""
 
     config = utils.make_config(soil=LayeredSoilModuleWrapper_LNW, crop=Wofost80Perennial, agro=AgroManagerPerennial)
+    NUM_ACT = 2
 
     def __init__(
         self,
@@ -778,6 +789,7 @@ class Pernnial_Multi_Limited_Layered_W_Env(Multi_NPK_Env, LW):
     """Simulates crop growth under Water Limited Production with layered water balance"""
 
     config = utils.make_config(soil=LayeredSoilModuleWrapper_LW, crop=Wofost80Perennial, agro=AgroManagerPerennial)
+    NUM_ACT = 1
 
     def __init__(
         self,
@@ -820,7 +832,7 @@ class Pernnial_Multi_Limited_Layered_W_Env(Multi_NPK_Env, LW):
         Args:
             action
         """
-        irrig_amount = action
+        i_amount = action
         # Null action
         if action == 0:
             return (0, 0, 0, i_amount)

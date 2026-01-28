@@ -10,6 +10,7 @@ from PySide6.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QScrol
 from PySide6.QtGui import QPixmap
 from PySide6.QtCore import Qt, QCoreApplication, QCommandLineParser, QCommandLineOption
 
+
 class ImageGallery(QWidget):
     def __init__(self, save_folder):
         super().__init__()
@@ -25,7 +26,7 @@ class ImageGallery(QWidget):
         container_layout = QVBoxLayout(container)
 
         if os.path.exists(save_folder):
-            plot_files = [f for f in os.listdir(save_folder) if f.lower().endswith('.png')]
+            plot_files = [f for f in os.listdir(save_folder) if f.lower().endswith(".png")]
 
             if not plot_files:
                 error_label = QLabel("No plots found in the specified folder.")
@@ -48,6 +49,7 @@ class ImageGallery(QWidget):
         layout.addWidget(scroll)
 
         self.setLayout(layout)
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

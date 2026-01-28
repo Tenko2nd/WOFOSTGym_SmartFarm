@@ -9,13 +9,11 @@ from gui.envPage import EnvironmentPage
 from gui.notif import Notif
 from gui.genDataPage import ViewDataPage
 
-from PySide6.QtWidgets import (
-    QApplication, QWidget, QPushButton, QLineEdit,
-    QVBoxLayout, QLabel, QHBoxLayout, QGroupBox
-)
+from PySide6.QtWidgets import QApplication, QWidget, QPushButton, QLineEdit, QVBoxLayout, QLabel, QHBoxLayout, QGroupBox
 from PySide6.QtCore import QSize, Qt
 
 SAVES_FOLDER_NAME = "saves"
+
 
 class HomePage(QWidget):
     def __init__(self):
@@ -34,9 +32,11 @@ class HomePage(QWidget):
         self.header_label.setFixedHeight(20)
 
         # Description
-        self.description_label = QLabel("This is a graphical user interface (GUI) built on top of the WOFOSTGym crop growth model. "
+        self.description_label = QLabel(
+            "This is a graphical user interface (GUI) built on top of the WOFOSTGym crop growth model. "
             "It allows users to generate data, simulate agricultural environments, and train reinforcement learning agents. \n"
-            "*This tool is designed for research and educational use.")
+            "*This tool is designed for research and educational use."
+        )
         self.description_label.setWordWrap(True)
         self.description_label.setStyleSheet("font-size: 13px; color: gray;")
         self.description_label.setFixedHeight(60)
@@ -68,7 +68,7 @@ class HomePage(QWidget):
         data_file_layout = QHBoxLayout()
         data_file_layout.addWidget(self.data_file_name_label)
         data_file_layout.addWidget(self.data_file_name_input_box)
-        
+
         inputs_layout.addLayout(save_folder_layout)
         inputs_layout.addLayout(data_file_layout)
         inputs_layout.setContentsMargins(10, 10, 10, 10)
@@ -107,7 +107,6 @@ class HomePage(QWidget):
 
         self.setLayout(main_layout)
 
-
     # *************************
     #        FUNCTIONS
     # *************************
@@ -116,7 +115,7 @@ class HomePage(QWidget):
             self.notif = Notif("Please fill in all fields.")
             self.notif.show()
             return
-        
+
         file_selections = {
             "save_folder": "sim_runs/" + self.save_folder_loc_input_box.text(),
             "data_file": self.data_file_name_input_box.text(),
@@ -131,7 +130,7 @@ class HomePage(QWidget):
             self.notif = Notif("Please fill in all fields.")
             self.notif.show()
             return
-        
+
         file_selections = {
             "save_folder": "sim_runs/" + self.save_folder_loc_input_box.text(),
             "data_file": self.data_file_name_input_box.text(),
@@ -226,6 +225,7 @@ class AboutPage(QWidget):
     def go_back(self):
         self.pages["home_page"].show()
         self.close()
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

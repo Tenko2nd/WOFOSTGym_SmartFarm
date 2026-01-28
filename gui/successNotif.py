@@ -5,14 +5,13 @@ Written by Mason Schuster, 2025
 """
 
 import subprocess
-from PySide6.QtWidgets import (
-    QWidget, QVBoxLayout, QLabel, QPushButton
-)
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton
 from PySide6.QtCore import Qt, QTimer
+
 
 class SuccessNotif(QWidget):
     def __init__(self, message, pages, file_selections):
-        super().__init__()      
+        super().__init__()
         self.setWindowTitle("Notification")
         self.setFixedSize(300, 200)
         self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
@@ -20,7 +19,6 @@ class SuccessNotif(QWidget):
         self.pages = pages
         self.file_selections = file_selections
         self.results_proc = None
-
 
         # *************************
         #         BUTTONS
@@ -71,7 +69,7 @@ class SuccessNotif(QWidget):
 
         self.pages["home_page"].show()
         self.close()
-    
+
     def run_different_simulation(self):
         if "custom_agro_page" in self.pages:
             self.pages["custom_agro_page"].close()
@@ -85,10 +83,17 @@ class SuccessNotif(QWidget):
 
         try:
             print("-WOFOST- Opening plot display")
-            print(f"-WOFOST- Command: python3 gui/plotDisplay.py -f {self.file_selections["save_folder"]}/",)
-            self.results_proc = subprocess.Popen([
-                "python3", "-m", "gui.plotDisplay",
-                "-f", f"{self.file_selections["save_folder"]}/",
-            ])
+            print(
+                f"-WOFOST- Command: python3 gui/plotDisplay.py -f {self.file_selections["save_folder"]}/",
+            )
+            self.results_proc = subprocess.Popen(
+                [
+                    "python3",
+                    "-m",
+                    "gui.plotDisplay",
+                    "-f",
+                    f"{self.file_selections["save_folder"]}/",
+                ]
+            )
         except subprocess.CalledProcessError as e:
             print(f"-WOFOST- Plot display failed with error: {e}")

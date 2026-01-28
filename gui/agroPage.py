@@ -14,12 +14,19 @@ from gui.customConfigPage import CustomConfigurationPage
 from gui.trainAgentPage import TrainAgentPage
 
 from PySide6.QtWidgets import (
-    QWidget, QPushButton, QComboBox, QFrame,
-    QVBoxLayout, QLabel, QHBoxLayout, QTextEdit,
+    QWidget,
+    QPushButton,
+    QComboBox,
+    QFrame,
+    QVBoxLayout,
+    QLabel,
+    QHBoxLayout,
+    QTextEdit,
 )
 from PySide6.QtCore import QSize, Qt
 
 AGRO_FOLDER_PATH = "env_config/agro"
+
 
 class AgromanagementPage(QWidget):
     def __init__(self, pages, env_selections, file_selections):
@@ -39,7 +46,7 @@ class AgromanagementPage(QWidget):
         self.agros_label.setFixedSize(QSize(125, 30))
         self.agros_dropdown = QComboBox()
         self.agros_dropdown.setFixedSize(QSize(200, 30))
-        
+
         agros_layout = QHBoxLayout()
         agros_layout.addWidget(self.agros_label)
         agros_layout.addWidget(self.agros_dropdown)
@@ -128,8 +135,7 @@ class AgromanagementPage(QWidget):
             return
 
         self.yaml_files = [
-            f for f in os.listdir(AGRO_FOLDER_PATH)
-            if fnmatch.fnmatch(f, "*.yaml") or fnmatch.fnmatch(f, "*.yml")
+            f for f in os.listdir(AGRO_FOLDER_PATH) if fnmatch.fnmatch(f, "*.yaml") or fnmatch.fnmatch(f, "*.yml")
         ]
 
         if not self.yaml_files:
@@ -146,7 +152,7 @@ class AgromanagementPage(QWidget):
         file_path = os.path.join(AGRO_FOLDER_PATH, file_name)
 
         try:
-            with open(file_path, 'r') as yaml_file:
+            with open(file_path, "r") as yaml_file:
                 self.yaml_data = yaml.safe_load(yaml_file)
                 text_data = yaml.dump(self.yaml_data, default_flow_style=False, allow_unicode=True, sort_keys=False)
                 self.selected_agro_info.setPlainText(text_data)
@@ -183,7 +189,6 @@ class AgromanagementPage(QWidget):
             self.notif.show()
             return False
         return True
-    
 
     def run_sim(self):
         if not self.check_input():
@@ -191,21 +196,33 @@ class AgromanagementPage(QWidget):
         agro_file = self.agros_dropdown.currentText()
         try:
             print("-WOFOST- Running agro simulation...")
-            print("-WOFOST- Command: python3 test_wofost.py --save-folder {}/ --data-file {} --env-id {} --agro-file {}".format(
-                self.file_selections["save_folder"],
-                self.file_selections["data_file"],
-                self.env_selections["env_id"],
-                agro_file
-            ))
-            subprocess.run([
-                "python3", "test_wofost.py",
-                "--save-folder", f"{self.file_selections['save_folder']}/",
-                "--data-file", f"{self.file_selections['data_file']}",
-                "--env-id", f"{self.env_selections['env_id']}",
-                "--agro-file", f"{self.agros_dropdown.currentText()}"
-            ], check=True)
+            print(
+                "-WOFOST- Command: python3 test_wofost.py --save-folder {}/ --data-file {} --env-id {} --agro-file {}".format(
+                    self.file_selections["save_folder"],
+                    self.file_selections["data_file"],
+                    self.env_selections["env_id"],
+                    agro_file,
+                )
+            )
+            subprocess.run(
+                [
+                    "python3",
+                    "test_wofost.py",
+                    "--save-folder",
+                    f"{self.file_selections['save_folder']}/",
+                    "--data-file",
+                    f"{self.file_selections['data_file']}",
+                    "--env-id",
+                    f"{self.env_selections['env_id']}",
+                    "--agro-file",
+                    f"{self.agros_dropdown.currentText()}",
+                ],
+                check=True,
+            )
 
-            self.successNotif = SuccessNotif(message="Simulation completed", pages=self.pages, file_selections=self.file_selections)
+            self.successNotif = SuccessNotif(
+                message="Simulation completed", pages=self.pages, file_selections=self.file_selections
+            )
             self.successNotif.show()
             self.close()
             print("-WOFOST- Simulation completed successfully.")
@@ -216,7 +233,7 @@ class AgromanagementPage(QWidget):
             self.pages["env_page"].close()
             self.close()
             return
-    
+
     def run_training(self):
         if not self.check_input():
             return
@@ -225,13 +242,15 @@ class AgromanagementPage(QWidget):
             pages=self.pages,
             env_selections=self.env_selections,
             file_selections=self.file_selections,
-            return_loc="agro_page"
+            return_loc="agro_page",
         )
         self.train_agent_page.show()
         self.hide()
-  
+
     def create_custom(self):
-        self.custom_agro = CustomConfigurationPage(pages=self.pages, env_selections=self.env_selections, file_selections=self.file_selections)
+        self.custom_agro = CustomConfigurationPage(
+            pages=self.pages, env_selections=self.env_selections, file_selections=self.file_selections
+        )
         self.custom_agro.show()
         self.hide()
 

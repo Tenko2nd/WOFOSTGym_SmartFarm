@@ -10,11 +10,9 @@ import subprocess
 from gui.notif import Notif
 from gui.viewLogsPage import ViewLogsPage
 
-from PySide6.QtWidgets import (
-    QWidget, QPushButton,
-    QVBoxLayout, QLabel, QHBoxLayout, QGroupBox, QComboBox
-)
+from PySide6.QtWidgets import QWidget, QPushButton, QVBoxLayout, QLabel, QHBoxLayout, QGroupBox, QComboBox
 from PySide6.QtCore import QSize, Qt
+
 
 class ViewDataPage(QWidget):
     def __init__(self, pages, file_selections):
@@ -59,20 +57,19 @@ class ViewDataPage(QWidget):
 
         self.setLayout(main_layout)
 
-
     # *************************
     #        FUNCTIONS
     # *************************
     def view_logs(self):
-            if not os.path.isdir(self.file_selections["save_folder"]):
-                print("-WOFOST- No training logs found in: " + self.file_selections["save_folder"])
-                self.notif = Notif("No training logs found in given save folder.")
-                self.notif.show()
-                return
+        if not os.path.isdir(self.file_selections["save_folder"]):
+            print("-WOFOST- No training logs found in: " + self.file_selections["save_folder"])
+            self.notif = Notif("No training logs found in given save folder.")
+            self.notif.show()
+            return
 
-            self.view_logs_page = ViewLogsPage(pages=self.pages, file_selections=self.file_selections)
-            self.view_logs_page.show()
-            self.hide()
+        self.view_logs_page = ViewLogsPage(pages=self.pages, file_selections=self.file_selections)
+        self.view_logs_page.show()
+        self.hide()
 
     def go_back(self):
         self.pages["home_page"].show()

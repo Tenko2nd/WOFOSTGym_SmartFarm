@@ -294,7 +294,7 @@ class NPKDictActionWrapper(gym.ActionWrapper):
                     }
                 )
 
-    def action(self, act: dict) -> int:
+    def action(self, action: dict) -> int:
         """
         Converts the dicionary action to an integer to be pased to the base
         environment.
@@ -302,11 +302,24 @@ class NPKDictActionWrapper(gym.ActionWrapper):
         Args:
             action
         """
-        if not isinstance(act, dict):
+        if not "n" in action.keys():
+            msg = "Nitrogen action 'n' not included in action dictionary keys"
+            raise exc.ActionException(msg)
+        if not "p" in action.keys():
+            msg = "Phosphorous action 'p' not included in action dictionary keys"
+            raise exc.ActionException(msg)
+        if not "k" in action.keys():
+            msg = "Potassium action 'k' not included in action dictionary keys"
+            raise exc.ActionException(msg)
+        if not "irrig" in action.keys():
+            msg = "Irrigation action 'irrig' not included in action dictionary keys"
+            raise exc.ActionException(msg)
+
+        if not isinstance(action, dict):
             msg = "Action must be of dictionary type. See README for more information"
             raise exc.ActionException(msg)
         else:
-            act_vals = list(act.values())
+            act_vals = list(action.values())
             for v in act_vals:
                 if not isinstance(v, int):
                     msg = "Action value must be of type int"
@@ -318,70 +331,100 @@ class NPKDictActionWrapper(gym.ActionWrapper):
             if len(np.nonzero(act_vals)[0]) == 0:
                 return 0
 
-        if not "n" in act.keys():
-            msg = "Nitrogen action 'n' not included in action dictionary keys"
-            raise exc.ActionException(msg)
-        if not "p" in act.keys():
-            msg = "Phosphorous action 'p' not included in action dictionary keys"
-            raise exc.ActionException(msg)
-        if not "k" in act.keys():
-            msg = "Potassium action 'k' not included in action dictionary keys"
-            raise exc.ActionException(msg)
-        if not "irrig" in act.keys():
-            msg = "Irrigation action 'irrig' not included in action dictionary keys"
-            raise exc.ActionException(msg)
+        action = self.project_action(action)
+
+        if not self.action_space.contains(action):
+            raise ValueError(f"Invalid action: {action}")
 
         # Planting Single Year environments
         if isinstance(self.env.unwrapped, Plant_NPK_Env):
 
-            if not "plant" in act.keys():
+            if not "plant" in action.keys():
                 msg = "'plant' not included in action dictionary keys"
                 raise exc.ActionException(msg)
-            if not "harvest" in act.keys():
+            if not "harvest" in action.keys():
                 msg = "'harvest' not included in action dictionary keys"
                 raise exc.ActionException(msg)
-            if len(act.keys()) != self.env.unwrapped.NUM_ACT:
+            if len(action.keys()) != (self.env.unwrapped.NUM_ACT + 1):  # offset for null action
                 msg = "Incorrect action dictionary specification"
                 raise exc.ActionException(msg)
 
-            offsets = [1, 1, self.num_fert, self.num_fert, self.num_fert, self.num_irrig]
-            act_values = [act["plant"], act["harvest"], act["n"], act["p"], act["k"], act["irrig"]]
+            offsets = self.build_offsets(action)
+            act_values = [action[k] for k in ["plant", "harvest", "n", "p", "k", "irrig"] if k in action.keys()]
             offset_flags = np.zeros(self.env.unwrapped.NUM_ACT)
-            offset_flags[: np.nonzero(act_values)[0][0]] = 1
+            offset_val = np.nonzero(act_values)[0][0] if len(np.nonzero(act_values)[0]) != 0 else 0
+            offset_flags[:offset_val] = 1
 
         # Harvesting Single Year environments
         elif isinstance(self.env.unwrapped, Harvest_NPK_Env):
 
-            if not "harvest" in act.keys():
+            if not "harvest" in action.keys():
                 msg = "'harvest' not included in action dictionary keys"
                 raise exc.ActionException(msg)
-            if len(act.keys()) != self.env.unwrapped.NUM_ACT:
+            if len(action.keys()) != (self.env.unwrapped.NUM_ACT + 1):  # offset for null action
                 msg = "Incorrect action dictionary specification"
                 raise exc.ActionException(msg)
 
-            offsets = [1, self.num_fert, self.num_fert, self.num_fert, self.num_irrig]
-            act_values = [act["harvest"], act["n"], act["p"], act["k"], act["irrig"]]
+            offsets = self.build_offsets(action)
+            act_values = [action[k] for k in ["harvest", "n", "p", "k", "irrig"] if k in action.keys()]
             offset_flags = np.zeros(self.env.unwrapped.NUM_ACT)
-            offset_flags[: np.nonzero(act_values)[0][0]] = 1
+            offset_val = np.nonzero(act_values)[0][0] if len(np.nonzero(act_values)[0]) != 0 else 0
+            offset_flags[:offset_val] = 1
 
         # Default environments
         else:
-            if len(act.keys()) != self.env.unwrapped.NUM_ACT:
+
+            if len(action.keys()) != (self.env.unwrapped.NUM_ACT + 1):  # offset for null action
                 msg = "Incorrect action dictionary specification"
                 raise exc.ActionException(msg)
 
-            offsets = [self.num_fert, self.num_fert, self.num_fert, self.num_irrig]
-            act_values = [act["n"], act["p"], act["k"], act["irrig"]]
+            offsets = self.build_offsets(action)
+            act_values = [action[k] for k in ["n", "p", "k", "irrig"] if k in action.keys()]
             offset_flags = np.zeros(self.env.unwrapped.NUM_ACT)
-            offset_flags[: np.nonzero(act_values)[0][0]] = 1
+            offset_val = np.nonzero(act_values)[0][0] if len(np.nonzero(act_values)[0]) != 0 else 0
+            offset_flags[:offset_val] = 1
 
-        return np.sum(offsets * offset_flags) + act_values[np.nonzero(act_values)[0][0]]
+        return np.sum(offsets * offset_flags) + act_values[offset_val]
 
     def reset(self, **kwargs: dict) -> tuple[np.ndarray, dict]:
         """
         Forward keyword environments to base env
         """
         return self.env.reset(**kwargs)
+
+    def project_action(self, action):
+        """
+        Project the action into the correct action space
+        """
+        assert isinstance(
+            action, dict
+        ), f"Unable to project action to action space. Expected action type `dict` but got type `{type(action)}"
+
+        act_dict = {k: action[k] for k in self.action_space.spaces.keys() if k in action.keys()}
+        if "null" not in act_dict:
+            act_dict["null"] = 0
+
+        return act_dict
+
+    def build_offsets(self, action):
+        """
+        Build the action offsets for computing dict to integer
+        """
+        offsets = []
+        act_keys = action.keys()
+        if "plant" in act_keys:
+            offsets.append(1)
+        if "harvest" in act_keys:
+            offsets.append(1)
+        if "n" in act_keys:
+            offsets.append(self.num_fert)
+        if "p" in act_keys:
+            offsets.append(self.num_fert)
+        if "k" in act_keys:
+            offsets.append(self.num_fert)
+        if "irrig" in act_keys:
+            offsets.append(self.num_irrig)
+        return offsets
 
 
 class RewardWrapper(gym.Wrapper, ABC):

@@ -128,11 +128,10 @@ def assim(AMAX: float, EFF: float, LAI: float, KDIF: float, SINB: float, PARDIR:
         # direct light absorbed by leaves perpendicular on direct
         # beam and assimilation of sunlit leaf area
         VISPP = (1.0 - SCV) * PARDIR / SINB
-        if (VISPP <= 0.):
+        if VISPP <= 0.0:
             FGRSUN = FGRSH
         else:
-            FGRSUN = AMAX * (1. - (AMAX - FGRSH) \
-                     * (1. - exp(-VISPP * EFF / max(2.0 , AMAX) ) ) / (EFF * VISPP))
+            FGRSUN = AMAX * (1.0 - (AMAX - FGRSH) * (1.0 - exp(-VISPP * EFF / max(2.0, AMAX))) / (EFF * VISPP))
         # fraction of sunlit leaf area (FSLLA) and local
         # assimilation rate (FGL)
         FSLLA = exp(-KDIRBL * LAIC)

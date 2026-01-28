@@ -13,14 +13,24 @@ from gui.trainAgentPage import TrainAgentPage
 import gui.yamlHelper as ah
 
 from PySide6.QtWidgets import (
-    QWidget, QPushButton, QComboBox, QLineEdit, QCheckBox, QDateEdit,
-    QVBoxLayout, QLabel, QHBoxLayout, QGroupBox, QTextEdit,
+    QWidget,
+    QPushButton,
+    QComboBox,
+    QLineEdit,
+    QCheckBox,
+    QDateEdit,
+    QVBoxLayout,
+    QLabel,
+    QHBoxLayout,
+    QGroupBox,
+    QTextEdit,
 )
 from PySide6.QtCore import QSize, QDate
 
 AGRO_FOLDER_PATH = "env_config/agro"
 CROP_FOLDER_PATH = "env_config/crop"
 SITE_FOLDER_PATH = "env_config/site"
+
 
 class CustomConfigurationPage(QWidget):
     def __init__(self, pages, env_selections, file_selections):
@@ -43,7 +53,7 @@ class CustomConfigurationPage(QWidget):
         self.crops_label.setFixedSize(QSize(125, 30))
         self.crops_dropdown = QComboBox()
         self.crops_dropdown.setFixedSize(QSize(200, 30))
-        
+
         crop_names_layout = QHBoxLayout()
         crop_names_layout.addWidget(self.crops_label)
         crop_names_layout.addWidget(self.crops_dropdown)
@@ -115,7 +125,7 @@ class CustomConfigurationPage(QWidget):
         crops_layout.addLayout(crop_max_duration_layout)
         crops_layout.addLayout(crop_start_date_layout)
         crops_layout.addLayout(crop_end_date_layout)
-        crops.setLayout(crops_layout)    
+        crops.setLayout(crops_layout)
 
         # *************************
         #       SITE INPUTS
@@ -149,7 +159,7 @@ class CustomConfigurationPage(QWidget):
         self.site_latitude_label = QLabel("Site Latitude:")
         self.site_latitude_label.setFixedSize(QSize(125, 30))
         self.site_latitude_input = QLineEdit()
-        
+
         site_latitude_layout = QHBoxLayout()
         site_latitude_layout.addWidget(self.site_latitude_label)
         site_latitude_layout.addWidget(self.site_latitude_input)
@@ -169,7 +179,7 @@ class CustomConfigurationPage(QWidget):
         self.site_year_label = QLabel("Site Year:")
         self.site_year_label.setFixedSize(QSize(125, 30))
         self.site_year_input = QLineEdit()
-        
+
         site_year_layout = QHBoxLayout()
         site_year_layout.addWidget(self.site_year_label)
         site_year_layout.addWidget(self.site_year_input)
@@ -333,7 +343,7 @@ class CustomConfigurationPage(QWidget):
                 self.notif = Notif(f"Please fill in all fields.")
                 self.notif.show()
                 return False
-            
+
         if site_info.get("site_start_date") > site_info.get("site_end_date"):
             self.notif = Notif("Site start date cannot be after site end date.")
             self.notif.show()
@@ -342,7 +352,7 @@ class CustomConfigurationPage(QWidget):
             self.notif = Notif("Crop start date cannot be after crop end date.")
             self.notif.show()
             return False
-            
+
         return True
 
     def handle_create_agro(self, create=False):
@@ -351,7 +361,7 @@ class CustomConfigurationPage(QWidget):
             self.notif = Notif("Failed to create agro YAML file.")
             self.notif.show()
             return
-        
+
         self.agro_man_info.clear()
         self.agro_man_info.setPlainText(yaml.dump(yaml_info["agro_yaml"], default_flow_style=False, sort_keys=False))
         return yaml_info["agro_yaml"]
@@ -364,7 +374,7 @@ class CustomConfigurationPage(QWidget):
         crop_max_duration = self.crop_max_duration_input.text()
         crop_start_date = self.crop_start_date_input.date().toPython()
         crop_end_date = self.crop_end_date_input.date().toPython()
-        
+
         if crop_name and crop_name != "":
             self.agro_file_inputs["crop_name"] = crop_name
         if crop_variety and crop_variety != "":
@@ -439,9 +449,9 @@ class CustomConfigurationPage(QWidget):
 
         file_path = os.path.join(CROP_FOLDER_PATH, "crops.yaml")
         try:
-            with open(file_path, 'r') as f:
+            with open(file_path, "r") as f:
                 data = yaml.safe_load(f)
-            self.crop_yaml_files = [crop for crop in data.get('available_crops', [])]
+            self.crop_yaml_files = [crop for crop in data.get("available_crops", [])]
         except Exception as e:
             print(f"Error reading crop YAML file: {e}")
             self.crop_yaml_files = []
@@ -459,9 +469,9 @@ class CustomConfigurationPage(QWidget):
 
         file_path = os.path.join(CROP_FOLDER_PATH, f"{crop_name}.yaml")
         try:
-            with open(file_path, 'r') as f:
+            with open(file_path, "r") as f:
                 data = yaml.safe_load(f)
-            self.crop_varieties = data.get('CropParameters', {}).get('Varieties', {}).keys()
+            self.crop_varieties = data.get("CropParameters", {}).get("Varieties", {}).keys()
 
         except Exception as e:
             print(f"Error reading crop variations: {e}")
@@ -480,9 +490,9 @@ class CustomConfigurationPage(QWidget):
 
         file_path = os.path.join(SITE_FOLDER_PATH, "sites.yaml")
         try:
-            with open(file_path, 'r') as f:
+            with open(file_path, "r") as f:
                 data = yaml.safe_load(f)
-            self.site_yaml_files = [site for site in data.get('available_sites', [])]
+            self.site_yaml_files = [site for site in data.get("available_sites", [])]
         except Exception as e:
             print(f"Error reading site YAML file during load: {e}")
             self.site_yaml_files = []
@@ -500,9 +510,9 @@ class CustomConfigurationPage(QWidget):
 
         file_path = os.path.join(SITE_FOLDER_PATH, f"{site_name}.yaml")
         try:
-            with open(file_path, 'r') as f:
+            with open(file_path, "r") as f:
                 data = yaml.safe_load(f)
-            self.site_variations = data.get('SiteParameters', {}).get('Variations', {}).keys()
+            self.site_variations = data.get("SiteParameters", {}).get("Variations", {}).keys()
 
         except Exception as e:
             print(f"Error reading site variations: {e}")
@@ -520,7 +530,6 @@ class CustomConfigurationPage(QWidget):
     #         if self.yaml_name_input.text() + ".yaml" in os.listdir(AGRO_FOLDER_PATH):
     #             os.remove(os.path.join(AGRO_FOLDER_PATH, self.yaml_name_input.text() + ".yaml"))
     #             print("-WOFOST- Agro file removed -- save option is unchecked")
-        
 
     # Run Simulation -- Uses individual agrs for crop and site variables (Depricated)
     # def run_simulation_1(self):
@@ -533,7 +542,7 @@ class CustomConfigurationPage(QWidget):
     #         self.notif = Notif("Please select all options.")
     #         self.notif.show()
     #         return
-        
+
     #     print("-WOFOST- Running custom agro simulation...")
     #     print("-WOFOST- Command: python3 test_wofost.py --save-folder {} --data-file {} --env-id {} --npk.ag.crop-name {} --npk.ag.crop-variety {} --npk.ag.site-name {} --npk.ag.site-variation {}".format(
     #         self.file_selections["save_folder"],
@@ -562,29 +571,41 @@ class CustomConfigurationPage(QWidget):
             self.notif = Notif("Please enter a name for your custom agro file.")
             self.notif.show()
             return
-        
-        self.agro_file_inputs['file_name'] = self.yaml_name_input.text()
+
+        self.agro_file_inputs["file_name"] = self.yaml_name_input.text()
         agro_info = self.handle_create_agro(create=True)
         if not self.checkInputs(agro_info):
             return
-        
+
         try:
             print("-WOFOST- Running custom agro simulation...")
-            print("-WOFOST- Command: python3 test_wofost.py --save-folder {}/ --data-file {} --env-id {} --agro-file {}".format(
-                self.file_selections["save_folder"],
-                self.file_selections["data_file"],
-                self.env_selections["env_id"],
-                self.agro_file_inputs['file_name'] + ".yaml"
-            ))
-            subprocess.run([
-                "python3", "test_wofost.py",
-                "--save-folder", f"{self.file_selections['save_folder']}/",
-                "--data-file", f"{self.file_selections['data_file']}",
-                "--env-id", f"{self.env_selections['env_id']}",
-                "--agro-file", f"{self.agro_file_inputs['file_name']}.yaml"
-            ], check=True)
+            print(
+                "-WOFOST- Command: python3 test_wofost.py --save-folder {}/ --data-file {} --env-id {} --agro-file {}".format(
+                    self.file_selections["save_folder"],
+                    self.file_selections["data_file"],
+                    self.env_selections["env_id"],
+                    self.agro_file_inputs["file_name"] + ".yaml",
+                )
+            )
+            subprocess.run(
+                [
+                    "python3",
+                    "test_wofost.py",
+                    "--save-folder",
+                    f"{self.file_selections['save_folder']}/",
+                    "--data-file",
+                    f"{self.file_selections['data_file']}",
+                    "--env-id",
+                    f"{self.env_selections['env_id']}",
+                    "--agro-file",
+                    f"{self.agro_file_inputs['file_name']}.yaml",
+                ],
+                check=True,
+            )
 
-            self.successNotif = SuccessNotif(message="Simulation completed", pages=self.pages, file_selections=self.file_selections)
+            self.successNotif = SuccessNotif(
+                message="Simulation completed", pages=self.pages, file_selections=self.file_selections
+            )
             self.successNotif.show()
             self.close()
             print("-WOFOST- Simulation completed successfully.")
@@ -595,25 +616,24 @@ class CustomConfigurationPage(QWidget):
             self.pages["env_page"].close()
             self.close()
             return
-        
-        
+
     def run_training(self):
         if not self.yaml_name_input.text() or not self.yaml_name_input.text().strip():
             self.notif = Notif("Please enter a name for your custom agro file.")
             self.notif.show()
             return
-        
-        self.agro_file_inputs['file_name'] = self.yaml_name_input.text()
+
+        self.agro_file_inputs["file_name"] = self.yaml_name_input.text()
         agro_info = self.handle_create_agro(create=True)
         if not self.checkInputs(agro_info):
             return
-        
-        self.env_selections["agro_file"] = self.agro_file_inputs['file_name'] + ".yaml"
+
+        self.env_selections["agro_file"] = self.agro_file_inputs["file_name"] + ".yaml"
         self.train_agent_page = TrainAgentPage(
             pages=self.pages,
             env_selections=self.env_selections,
             file_selections=self.file_selections,
-            return_loc="custom_config_page"
+            return_loc="custom_config_page",
         )
         self.train_agent_page.show()
         self.hide()
