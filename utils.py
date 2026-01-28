@@ -78,8 +78,8 @@ class Args:
     agro_fpath: str = "env_config/agro/"
     """Relative path to crop configuration folder"""
     crop_fpath: str = "env_config/crop/"
-    """Relative path to site configuration foloder"""
-    site_fpath: str = "env_config/site/"
+    """Relative path to soil configuration foloder"""
+    soil_fpath: str = "env_config/soil/"
     """Relative path to the state units """
     unit_fpath: str = "env_config/state_units.yaml"
     """Relative path to the state names"""
@@ -178,7 +178,7 @@ def make_gym_env(args: Namespace, run_name: str = None) -> gym.Env:
 
         if isinstance(env, Multi_NPK_Env):
             for i in range(env.num_farms):
-                wf_i = {**env._get_site_data(i), **env._get_crop_data(i)}
+                wf_i = {**env._get_soil_data(i), **env._get_crop_data(i)}
                 ag_i = copy.deepcopy(env.agromanagement)
 
                 # Reconcile and merge configurations
@@ -195,7 +195,7 @@ def make_gym_env(args: Namespace, run_name: str = None) -> gym.Env:
                     OmegaConf.save(config=config_i, f=fp.name)
         else:
             # Make configurations
-            wf = {**env._get_site_data(), **env._get_crop_data()}
+            wf = {**env._get_soil_data(), **env._get_crop_data()}
             ag = copy.deepcopy(env.agromanagement)
 
             # Reconcile and merge configurations
@@ -263,7 +263,7 @@ def get_gym_args(args: Args) -> tuple[str, dict]:
         "args": correct_commandline_lists(args.npk),
         "base_fpath": args.base_fpath,
         "agro_fpath": f"{args.agro_fpath}{args.agro_file}",
-        "site_fpath": args.site_fpath,
+        "soil_fpath": args.soil_fpath,
         "crop_fpath": args.crop_fpath,
         "unit_fpath": args.unit_fpath,
         "name_fpath": args.name_fpath,
@@ -476,12 +476,17 @@ def get_valid_trainers() -> dict[str, object]:
     modules = {k: v for k, v in modules.items() if isinstance(v, type(__import__("sys")))}
 
     trainer = {}
+    args = {}
     for m in modules.values():
         classes = {
             m.__name__.removeprefix("rl_algs."): obj for name, obj in getmembers(m, isfunction) if name == "train"
         }
+        alg_args = {
+            m.__name__.removeprefix("rl_algs."): obj for name, obj in getmembers(m, isclass) if name == "Args"
+        }
         trainer = dict(trainer, **classes)
-    return trainer
+        args = dict(args, **alg_args)
+    return trainer, args
 
 
 def get_functions(file: str) -> dict[str, FunctionType]:
@@ -534,7 +539,7 @@ def obs_to_numpy(obs: dict | torch.Tensor | np.ndarray) -> np.ndarray:
 def action_to_numpy(env: gym.Env, act: float | torch.Tensor | np.ndarray | dict) -> np.ndarray:
     """
     Converts the dicionary action to an integer to be pased to the base
-    environment.
+    environment when a ActionWrapper is not available
 
     Args:
         action
@@ -561,16 +566,16 @@ def action_to_numpy(env: gym.Env, act: float | torch.Tensor | np.ndarray | dict)
         raise Exception(msg)
 
     if not "n" in act.keys():
-        msg = "Nitrogen action 'n' not included in action dictionary keys"
+        msg = "Nitrogen action 'n' is not included in action dictionary keys"
         raise Exception(msg)
     if not "p" in act.keys():
-        msg = "Phosphorous action 'p' not included in action dictionary keys"
+        msg = "Phosphorous action 'p' is not included in action dictionary keys"
         raise Exception(msg)
     if not "k" in act.keys():
-        msg = "Potassium action 'k' not included in action dictionary keys"
+        msg = "Potassium action 'k' is not included in action dictionary keys"
         raise Exception(msg)
     if not "irrig" in act.keys():
-        msg = "Irrigation action 'irrig' not included in action dictionary keys"
+        msg = "Irrigation action 'irrig' isnot included in action dictionary keys"
         raise Exception(msg)
 
     # Planting Single Year environments

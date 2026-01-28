@@ -43,13 +43,13 @@ class Multi_Limited_NPKW_Env(Multi_NPK_Env, LNPKW):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
+        
     ) -> None:
         """Initialize the :class:`Limited_NPKW_Env`.
 
@@ -61,7 +61,7 @@ class Multi_Limited_NPKW_Env(Multi_NPK_Env, LNPKW):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -138,13 +138,13 @@ class Multi_PP_Env(Multi_NPK_Env, PP):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
+        
     ) -> None:
         """Initialize the :class:`PP_Env`.
 
@@ -156,7 +156,7 @@ class Multi_PP_Env(Multi_NPK_Env, PP):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -190,13 +190,13 @@ class Multi_Limited_NPK_Env(Multi_NPK_Env, LNPK):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
+        
     ) -> None:
         """Initialize the :class:`Limited_NPK_Env`.
 
@@ -208,7 +208,7 @@ class Multi_Limited_NPK_Env(Multi_NPK_Env, LNPK):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -259,13 +259,13 @@ class Multi_Limited_N_Env(Multi_NPK_Env, LN):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
+        
     ) -> None:
         """Initialize the :class:`Limited_N_Env`.
 
@@ -277,7 +277,7 @@ class Multi_Limited_N_Env(Multi_NPK_Env, LN):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -320,13 +320,13 @@ class Multi_Limited_NW_Env(Multi_NPK_Env, LNW):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
+        
     ) -> None:
         """Initialize the :class:`Limited_NW_Env`.
 
@@ -338,7 +338,7 @@ class Multi_Limited_NW_Env(Multi_NPK_Env, LNW):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -389,13 +389,13 @@ class Multi_Limited_W_Env(Multi_NPK_Env, LW):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
+        
     ) -> None:
         """Initialize the :class:`Limited_W_Env`.
 
@@ -407,7 +407,7 @@ class Multi_Limited_W_Env(Multi_NPK_Env, LW):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -450,13 +450,13 @@ class Multi_Limited_Layered_NPKW_Env(Multi_NPK_Env, LNPKW):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
+        
     ) -> None:
         """Initialize the :class:`Limited_NPKW_Env`.
 
@@ -468,7 +468,7 @@ class Multi_Limited_Layered_NPKW_Env(Multi_NPK_Env, LNPKW):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -545,13 +545,13 @@ class Multi_Layered_PP_Env(Multi_NPK_Env, PP):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
+        
     ) -> None:
         """Initialize the :class:`PP_Env`.
 
@@ -563,7 +563,7 @@ class Multi_Layered_PP_Env(Multi_NPK_Env, PP):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -597,13 +597,13 @@ class Multi_Limited_Layered_NPK_Env(Multi_NPK_Env, LNPK):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
+        
     ) -> None:
         """Initialize the :class:`Limited_NPK_Env`.
 
@@ -615,7 +615,7 @@ class Multi_Limited_Layered_NPK_Env(Multi_NPK_Env, LNPK):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -666,13 +666,13 @@ class Multi_Limited_Layered_N_Env(Multi_NPK_Env, LN):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
+        
     ) -> None:
         """Initialize the :class:`Limited_N_Env`.
 
@@ -684,7 +684,7 @@ class Multi_Limited_Layered_N_Env(Multi_NPK_Env, LN):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -727,13 +727,13 @@ class Multi_Limited_Layered_NW_Env(Multi_NPK_Env, LNW):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
+        
     ) -> None:
         """Initialize the :class:`Limited_NW_Env`.
 
@@ -745,7 +745,7 @@ class Multi_Limited_Layered_NW_Env(Multi_NPK_Env, LNW):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -796,13 +796,13 @@ class Multi_Limited_Layered_W_Env(Multi_NPK_Env, LW):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
+        
     ) -> None:
         """Initialize the :class:`Limited_W_Env`.
 
@@ -814,7 +814,7 @@ class Multi_Limited_Layered_W_Env(Multi_NPK_Env, LW):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,

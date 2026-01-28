@@ -45,13 +45,12 @@ class Harvest_Limited_NPKW_Env(Harvest_NPK_Env, LNPKW):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
     ) -> None:
         """Initialize the :class:`Harvest_Limited_NPKW_Env`.
 
@@ -64,7 +63,7 @@ class Harvest_Limited_NPKW_Env(Harvest_NPK_Env, LNPKW):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -137,13 +136,12 @@ class Harvest_PP_Env(Harvest_NPK_Env, PP):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
     ) -> None:
         """Initialize the :class:`Harvest_PP_Env`.
 
@@ -155,7 +153,7 @@ class Harvest_PP_Env(Harvest_NPK_Env, PP):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -201,13 +199,12 @@ class Harvest_Limited_NPK_Env(Harvest_NPK_Env, LNPK):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
     ) -> None:
         """Initialize the :class:`Harvest_Limited_NPK_Env`.
 
@@ -219,7 +216,7 @@ class Harvest_Limited_NPK_Env(Harvest_NPK_Env, LNPK):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -283,13 +280,13 @@ class Harvest_Limited_N_Env(Harvest_NPK_Env, LN):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
+        
     ) -> None:
         """Initialize the :class:`Harvest_Limited_N_Env`.
 
@@ -301,7 +298,7 @@ class Harvest_Limited_N_Env(Harvest_NPK_Env, LN):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -356,13 +353,13 @@ class Harvest_Limited_NW_Env(Harvest_NPK_Env, LNW):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
+        
     ) -> None:
         """Initialize the :class:`Harvest_Limited_NW_Env`.
 
@@ -374,7 +371,7 @@ class Harvest_Limited_NW_Env(Harvest_NPK_Env, LNW):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -437,13 +434,13 @@ class Harvest_Limited_W_Env(Harvest_NPK_Env, LW):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
+        
     ) -> None:
         """Initialize the :class:`Harvest_Limited_W_Env`.
 
@@ -455,7 +452,7 @@ class Harvest_Limited_W_Env(Harvest_NPK_Env, LW):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -511,13 +508,13 @@ class Harvest_Limited_Layered_NPKW_Env(Harvest_NPK_Env, LNPKW):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
+        
     ) -> None:
         """Initialize the :class:`Harvest_Limited_NPKW_Env`.
 
@@ -529,7 +526,7 @@ class Harvest_Limited_Layered_NPKW_Env(Harvest_NPK_Env, LNPKW):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -602,13 +599,13 @@ class Harvest_Layered_PP_Env(Harvest_NPK_Env, PP):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
+        
     ) -> None:
         """Initialize the :class:`Harvest_PP_Env`.
 
@@ -620,7 +617,7 @@ class Harvest_Layered_PP_Env(Harvest_NPK_Env, PP):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -666,13 +663,13 @@ class Harvest_Limited_Layered_NPK_Env(Harvest_NPK_Env, LNPK):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
+        
     ) -> None:
         """Initialize the :class:`Harvest_Limited_NPK_Env`.
 
@@ -684,7 +681,7 @@ class Harvest_Limited_Layered_NPK_Env(Harvest_NPK_Env, LNPK):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -748,13 +745,13 @@ class Harvest_Limited_Layered_N_Env(Harvest_NPK_Env, LN):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
+        
     ) -> None:
         """Initialize the :class:`Harvest_Limited_N_Env`.
 
@@ -766,7 +763,7 @@ class Harvest_Limited_Layered_N_Env(Harvest_NPK_Env, LN):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -821,13 +818,13 @@ class Harvest_Limited_Layered_NW_Env(Harvest_NPK_Env, LNW):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
+        
     ) -> None:
         """Initialize the :class:`Harvest_Limited_NW_Env`.
 
@@ -839,7 +836,7 @@ class Harvest_Limited_Layered_NW_Env(Harvest_NPK_Env, LNW):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
@@ -902,13 +899,13 @@ class Harvest_Limited_Layered_W_Env(Harvest_NPK_Env, LW):
         args: NPK_Args,
         base_fpath: str,
         agro_fpath: str,
-        site_fpath: str,
+        soil_fpath: str,
         crop_fpath: str,
         name_fpath: str,
         unit_fpath: str,
         range_fpath: str,
         render_mode: str = None,
-        config: dict = None,
+        
     ) -> None:
         """Initialize the :class:`Harvest_Limited_W_Env`.
 
@@ -920,7 +917,7 @@ class Harvest_Limited_Layered_W_Env(Harvest_NPK_Env, LW):
             args,
             base_fpath,
             agro_fpath,
-            site_fpath,
+            soil_fpath,
             crop_fpath,
             name_fpath,
             unit_fpath,
