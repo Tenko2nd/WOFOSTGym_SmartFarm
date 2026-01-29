@@ -139,6 +139,40 @@ class Weekly_N(Policy):
         return f"Weekly N {self.amount}"
 
 
+class Weekly_W(Policy):
+    """Policy applying a small amount of Water every day"""
+
+    required_vars = []
+
+    def __init__(self, env: gym.Env, amount: float = 0, **kwargs: dict) -> None:
+        """Initialize the :class:`Weekly_W`.
+
+        Args:
+            env: The Gymnasium Environment
+            required_vars: list of required state space variables
+        """
+        self.amount = amount
+        super().__init__(env, required_vars=self.required_vars)
+
+    def _validate(self) -> None:
+        """Validates that the weekly amount is within the range of allowable actions"""
+        super()._validate()
+
+        if self.amount > self.env.unwrapped.num_irrig:
+            msg = "N Amount exceeds total Water actions"
+            raise PolicyException(msg)
+
+    def _get_action(self, obs: dict) -> int:
+        """Return an action with an amount of N fertilization"""
+        return {"n": 0, "p": 0, "k": 0, "irrig": self.amount}
+
+    def __str__(self) -> str:
+        """
+        Returns a human readable string
+        """
+        return f"Weekly W {self.amount}"
+
+
 class Interval_N(Policy):
     """Policy applying a small amount of Nitrogen at a given interval"""
 

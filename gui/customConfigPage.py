@@ -31,6 +31,7 @@ AGRO_FOLDER_PATH = "env_config/agro"
 CROP_FOLDER_PATH = "env_config/crop"
 SOIL_FOLDER_PATH = "env_config/soil"
 
+
 class CustomConfigurationPage(QWidget):
     def __init__(self, pages, env_selections, file_selections):
         super().__init__()
@@ -158,7 +159,7 @@ class CustomConfigurationPage(QWidget):
         self.soil_latitude_label = QLabel("soil Latitude:")
         self.soil_latitude_label.setFixedSize(QSize(125, 30))
         self.soil_latitude_input = QLineEdit()
-        
+
         soil_latitude_layout = QHBoxLayout()
         soil_latitude_layout.addWidget(self.soil_latitude_label)
         soil_latitude_layout.addWidget(self.soil_latitude_input)
@@ -178,7 +179,7 @@ class CustomConfigurationPage(QWidget):
         self.soil_year_label = QLabel("soil Year:")
         self.soil_year_label.setFixedSize(QSize(125, 30))
         self.soil_year_input = QLineEdit()
-        
+
         soil_year_layout = QHBoxLayout()
         soil_year_layout.addWidget(self.soil_year_label)
         soil_year_layout.addWidget(self.soil_year_input)
@@ -342,7 +343,7 @@ class CustomConfigurationPage(QWidget):
                 self.notif = Notif(f"Please fill in all fields.")
                 self.notif.show()
                 return False
-            
+
         if soil_info.get("soil_start_date") > soil_info.get("soil_end_date"):
             self.notif = Notif("soil start date cannot be after soil end date.")
             self.notif.show()
@@ -491,7 +492,7 @@ class CustomConfigurationPage(QWidget):
         try:
             with open(file_path, "r") as f:
                 data = yaml.safe_load(f)
-            self.soil_yaml_files = [soil for soil in data.get('available_soils', [])]
+            self.soil_yaml_files = [soil for soil in data.get("available_soils", [])]
         except Exception as e:
             print(f"Error reading soil YAML file during load: {e}")
             self.soil_yaml_files = []
@@ -511,7 +512,7 @@ class CustomConfigurationPage(QWidget):
         try:
             with open(file_path, "r") as f:
                 data = yaml.safe_load(f)
-            self.soil_variations = data.get('soilParameters', {}).get('Variations', {}).keys()
+            self.soil_variations = data.get("soilParameters", {}).get("Variations", {}).keys()
 
         except Exception as e:
             print(f"Error reading soil variations: {e}")
@@ -529,7 +530,6 @@ class CustomConfigurationPage(QWidget):
     #         if self.yaml_name_input.text() + ".yaml" in os.listdir(AGRO_FOLDER_PATH):
     #             os.remove(os.path.join(AGRO_FOLDER_PATH, self.yaml_name_input.text() + ".yaml"))
     #             print("-WOFOST- Agro file removed -- save option is unchecked")
-        
 
     # Run Simulation -- Uses individual agrs for crop and soil variables (Depricated)
     # def run_simulation_1(self):

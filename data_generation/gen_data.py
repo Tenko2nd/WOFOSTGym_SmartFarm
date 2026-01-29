@@ -48,15 +48,15 @@ class DataArgs(utils.Args):
 
     """Parameters for generating data"""
     """Year range, incremented by 1"""
-    year_low: Optional[int] = None # 1984
-    year_high: Optional[int] = None # 2019
+    year_low: Optional[int] = None  # 1984
+    year_high: Optional[int] = None  # 2019
     """Latitude range, incremented by .5"""
-    lat_low: Optional[int] = None
-    lat_high: Optional[int] = None
+    lat_low: Optional[float] = None
+    lat_high: Optional[float] = None
 
     """Latitude range, incremented by .5"""
-    lon_low: Optional[int] = None
-    lon_high: Optional[int] = None
+    lon_low: Optional[float] = None
+    lon_high: Optional[float] = None
 
     """Cuda setting for RL agents"""
     cuda: bool = True
@@ -240,5 +240,4 @@ if __name__ == "__main__":
     except:
         msg = f"File Output type `{args.file_type}` not supported, please check `--args.file-type`"
         raise Exception(msg)
-
     data_func(env, args, policy)

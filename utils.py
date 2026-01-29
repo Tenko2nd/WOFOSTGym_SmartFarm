@@ -481,9 +481,7 @@ def get_valid_trainers() -> dict[str, object]:
         classes = {
             m.__name__.removeprefix("rl_algs."): obj for name, obj in getmembers(m, isfunction) if name == "train"
         }
-        alg_args = {
-            m.__name__.removeprefix("rl_algs."): obj for name, obj in getmembers(m, isclass) if name == "Args"
-        }
+        alg_args = {m.__name__.removeprefix("rl_algs."): obj for name, obj in getmembers(m, isclass) if name == "Args"}
         trainer = dict(trainer, **classes)
         args = dict(args, **alg_args)
     return trainer, args
@@ -505,7 +503,7 @@ def get_classes(file: str) -> dict[str, object]:
     return classes
 
 
-def get_reward_wrappers(file: str):
+def get_reward_wrappers(file: str) -> dict[str, gym.Wrapper]:
     """
     Get the classes that are declared in a specific file
     """
@@ -515,6 +513,28 @@ def get_reward_wrappers(file: str):
         if getmodule(obj) == file and issubclass(obj, wrappers.RewardWrapper)
     }
     return classes
+
+
+def is_wrapped(env, wrapper_cls: gym.Wrapper) -> bool:
+    """
+    Check if an environment is wrapped with a specific wrapper
+    """
+    while isinstance(env, gym.Wrapper):
+        if isinstance(env, wrapper_cls):
+            return True
+        env = env.env
+    return False
+
+
+def get_wrapper_env(env, wrapper_cls: gym.Wrapper) -> gym.Env | None:
+    """
+    Get the instance of the environment that corresponds to the specific wrapper
+    """
+    while isinstance(env, gym.Wrapper):
+        if isinstance(env, wrapper_cls):
+            return env
+        env = env.env
+    return None
 
 
 def normalize(arr: np.ndarray) -> np.ndarray:
@@ -561,71 +581,12 @@ def action_to_numpy(env: gym.Env, act: float | torch.Tensor | np.ndarray | dict)
             raise Exception(msg)
         if len(np.nonzero(act_vals)[0]) == 0:
             return np.array([0])
+
+        assert is_wrapped(
+            env, wrappers.NPKDictActionWrapper
+        ), f"Environment must be wrapped with a `NPKDictActionWrapper` if the environment is receiving a `dict` action `{act}`"
+        act_env = get_wrapper_env(env, wrappers.NPKDictActionWrapper)
+        return act_env.action(act)
     else:
         msg = f"Unsupported Action Type `{type(act)}`. See README for more information"
         raise Exception(msg)
-
-    if not "n" in act.keys():
-        msg = "Nitrogen action 'n' is not included in action dictionary keys"
-        raise Exception(msg)
-    if not "p" in act.keys():
-        msg = "Phosphorous action 'p' is not included in action dictionary keys"
-        raise Exception(msg)
-    if not "k" in act.keys():
-        msg = "Potassium action 'k' is not included in action dictionary keys"
-        raise Exception(msg)
-    if not "irrig" in act.keys():
-        msg = "Irrigation action 'irrig' isnot included in action dictionary keys"
-        raise Exception(msg)
-
-    # Planting Single Year environments
-    if isinstance(env.unwrapped, Plant_NPK_Env):
-        if not "plant" in act.keys():
-            msg = "'plant' not included in action dictionary keys"
-            raise Exception(msg)
-        if not "harvest" in act.keys():
-            msg = "'harvest' not included in action dictionary keys"
-            raise Exception(msg)
-        if len(act.keys()) != env.unwrapped.NUM_ACT:
-            msg = "Incorrect action dictionary specification"
-            raise Exception(msg)
-
-        offsets = [
-            1,
-            1,
-            env.unwrapped.num_fert,
-            env.unwrapped.num_fert,
-            env.unwrapped.num_fert,
-            env.unwrapped.num_irrig,
-        ]
-        act_values = [act["plant"], act["harvest"], act["n"], act["p"], act["k"], act["irrig"]]
-        offset_flags = np.zeros(env.unwrapped.NUM_ACT)
-        offset_flags[: np.nonzero(act_values)[0][0]] = 1
-
-    # Harvesting Single Year environments
-    elif isinstance(env.unwrapped, Harvest_NPK_Env):
-        if not "harvest" in act.keys():
-            msg = "'harvest' not included in action dictionary keys"
-            raise Exception(msg)
-        if len(act.keys()) != env.unwrapped.NUM_ACT:
-            msg = "Incorrect action dictionary specification"
-            raise Exception(msg)
-
-        offsets = [1, env.unwrapped.num_fert, env.unwrapped.num_fert, env.unwrapped.num_fert, env.unwrapped.num_irrig]
-        act_values = [act["harvest"], act["n"], act["p"], act["k"], act["irrig"]]
-        offset_flags = np.zeros(env.unwrapped.NUM_ACT)
-        offset_flags[: np.nonzero(act_values)[0][0]] = 1
-
-    # Default environments
-    else:
-        if len(act.keys()) != env.unwrapped.NUM_ACT:
-            msg = "Incorrect action dictionary specification"
-            raise Exception(msg)
-
-        offsets = [env.unwrapped.num_fert, env.unwrapped.num_fert, env.unwrapped.num_fert, env.unwrapped.num_irrig]
-        act_values = [act["n"], act["p"], act["k"], act["irrig"]]
-        offset_flags = np.zeros(env.env.unwrapped.NUM_ACT)
-        offset_flags[: np.nonzero(act_values)[0][0]] = 1
-
-    # Cast action to numpy array based on offsets computed above
-    return np.array([np.sum(offsets * offset_flags) + act_values[np.nonzero(act_values)[0][0]]])

@@ -20,9 +20,11 @@ from dataclasses import dataclass
 import utils
 from typing import Optional
 
+
 @dataclass
 class AlgArgs:
     pass
+
 
 @dataclass
 class AgentArgs(utils.Args):
@@ -49,6 +51,6 @@ if __name__ == "__main__":
     except:
         msg = "Error in getting agent trainer. Check that `--args.agent-type` is a valid agent in rl_algs/ and that <agent-type.py> contains valid train() function."
         raise Exception(msg)
-    
+
     args.alg = alg_args()
     ag_trainer(args)
