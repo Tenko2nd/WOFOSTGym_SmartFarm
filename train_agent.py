@@ -30,7 +30,7 @@ class AlgArgs:
 class AgentArgs(utils.Args):
     # Agent Args configurations
     alg: object = AlgArgs
-    """Agent Type: RPPO | PPO | DQN | SAC| BCQ | etc"""
+    """Agent Type: RPPO | PPO | DQN | SAC | BCQ | etc"""
     agent_type: Optional[str] = None
 
     """Tracking Flag, if True will Track using Weights and Biases"""
@@ -53,4 +53,5 @@ if __name__ == "__main__":
         raise Exception(msg)
 
     args.alg = alg_args()
+    # TODO: Refactor to expose algorithm args (learning_rate, num_envs, etc.) via CLI
     ag_trainer(args)

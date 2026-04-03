@@ -240,7 +240,7 @@ def eval_policy_lstm(
         unit_fpath,
         range_fpath,
         render_mode,
-        config,
+        # config, # Causes Problem with RPPO
     )
 
     env = utils.wrap_env_reward(env, kwargs)

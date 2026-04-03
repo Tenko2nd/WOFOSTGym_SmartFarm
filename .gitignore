@@ -2,7 +2,8 @@
 *__pycache__/
 *output/
 data_plotting/vis_data_paper.py
-bash_scripts/
-experiments/
-test/
-sim_runs/
+shell_scripts/
+.idea/
+*.cache
+wandb/
+runs/

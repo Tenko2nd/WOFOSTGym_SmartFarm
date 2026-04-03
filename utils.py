@@ -50,7 +50,7 @@ class Args:
 
     """Relative location of run, either agent or data, where to save config file 
         and associated run (policies, .npz files, etc)"""
-    save_folder: Optional[str] = None
+    save_folder: Optional[str] = "runs/"
     """Relative location of configuration file to load"""
     config_fpath: Optional[str] = None
     """Name of data file to save save in save_folder"""
@@ -141,7 +141,6 @@ def make_gym_env(args: Namespace, run_name: str = None) -> gym.Env:
     are not applied to environment
     """
 
-    assert args.save_folder is not None, "Specify `save_folder` to save config file."
     assert isinstance(
         args.save_folder, str
     ), f"`args.save_folder` must be of type `str` but is of type `{type(args.save_folder)}`."
@@ -218,7 +217,6 @@ def make_gym_envs(args: Namespace, config_fpaths: list, run_name: str = None) ->
     Make multiple gym environments from a list of configurations
     """
 
-    assert args.save_folder is not None, "Specify `save_folder` to save config file."
     assert isinstance(
         args.save_folder, str
     ), f"`args.save_folder` must be of type `str` but is of type `{type(args.save_folder)}`."

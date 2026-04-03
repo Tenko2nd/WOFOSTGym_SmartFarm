@@ -20,7 +20,7 @@ from rl_algs.rl_utils import RL_Args, Agent, setup, eval_policy_lstm
 
 @dataclass
 class Args(RL_Args):
-    total_timesteps: int = 1000000
+    total_timesteps: int = 1_000_000
     """total timesteps of the experiments"""
     learning_rate: float = 2.5e-4
     """the learning rate of the optimizer"""

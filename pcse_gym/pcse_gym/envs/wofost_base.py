@@ -1350,40 +1350,40 @@ class Harvest_NPK_Env(NPK_Env):
 class LNPKW(gym.Env):
     """Limited N/P/K Water"""
 
-    def __init__():
+    def __init__(self):
         pass
 
 
 class PP(gym.Env):
     """Potential Production"""
 
-    def __init__():
+    def __init__(self):
         pass
 
 
 class LNPK(gym.Env):
     """Limited N/P/K"""
 
-    def __init__():
+    def __init__(self):
         pass
 
 
 class LN(gym.Env):
     """Limited N"""
 
-    def __init__():
+    def __init__(self):
         pass
 
 
 class LNW(gym.Env):
     """Limited N and Water"""
 
-    def __init__():
+    def __init__(self):
         pass
 
 
 class LW(gym.Env):
     """Limited Water"""
 
-    def __init__():
+    def __init__(self):
         pass
