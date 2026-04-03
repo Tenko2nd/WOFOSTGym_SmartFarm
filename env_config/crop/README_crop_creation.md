@@ -1,17 +1,18 @@
-### README_crop_creation.md 
 # An overview of how to create a new crop for use in the WOFOST simulator
 
 ## Crop Creation
-1. To create a new crop, copy the template below into a <crop_name>.yaml file
-2. Fill out all fields marked with angle brackets < > 
+1. To create a new crop, copy the template below into a `<crop_name>.yaml` file
+2. Fill out all fields marked with angle brackets `< >` 
 3. Create at least one desired variety for the crop. Make sure it inherits 
-<crop_name> in the <<: &<crop_name> field
-4. Register the crop by adding another line in the crops.yaml file. Doing so will 
+`<crop_name>` in the `<<: &<crop_name>` field
+4. Register the crop by adding another line in the [crops.yaml](crops.yaml) file. Doing so will 
 ensure that the crop is loaded when the simulator is run
-5. Create an agromanagement file for your crop (see ../agro_config/README_agro_creation.md)
-to run your crop. Test the rest with python3 test_wofost.py --agro_fpath <agromanagement_file_name>
+5. Create an agromanagement file for your crop (See the [Agro Creation Guide](../agro/README_agro_creation.md))
+to run your crop. Test the rest with:  
+`python test_wofost.py --agro_fpath <agromanagement_file_name>`
 
 
+````yaml
 Version: 1.0.0
 Metadata: &meta
     Creator: <Name>
@@ -484,4 +485,4 @@ CropParameters:
             -  < float >
             - description
             - ['unit']
-            
+````

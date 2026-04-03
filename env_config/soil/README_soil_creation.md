@@ -1,17 +1,17 @@
-### README_soil_creation.md 
 # An overview of how to create a new soil for use in the WOFOST simulator
 
 ## Soil Creation
-1. To create a new soil, copy the template below into a <soil_name>.yaml file
-2. Fill out all fields marked with angle brackets < > 
+1. To create a new soil, copy the template below into a `<soil_name>.yaml` file
+2. Fill out all fields marked with angle brackets `< >` 
 3. Create at least one desired variety for the soil. Make sure it inherits 
-<soil_name> in the <<: &<soil_name> field
-4. Register the soil by adding another line in the soils.yaml file. Doing so will 
+`<soil_name>` in the `<<: &<soil_name>` field
+4. Register the soil by adding another line in the [soils.yaml](soils.yaml) file. Doing so will 
 ensure that the soil is loaded when the simulator is run
-5. Create an agromanagement file for your soil (see ../agro_config/README_agro_creation.md)
-to run your soil. Test the rest with python3 test_wofost.py --agro_fpath <agromanagement_file_name>
+5. Create an agromanagement file for your soil (See the [Agro Creation Guide](../agro/README_agro_creation.md))
+to run your soil. Test the rest with:  
+`python test_wofost.py --agro_fpath <agromanagement_file_name>`
 
-
+````yaml
 Version: 1.0.0
 Metadata: &meta
     Creator: <Name>
@@ -32,7 +32,8 @@ Metadata: &meta
        Region: <Oregon, Washington, etc> 
     Rights: <License> 
     Keyword: <Soil keyword>
-
+    
+SoilParameters:
    EcoTypes:
      <soil name>: &<soil_name>
        #
@@ -158,9 +159,4 @@ Metadata: &meta
         - < float > 
         - atmospheric CO2 concentration
         - ['ppm']
-
-
-
-
-
-
+````
